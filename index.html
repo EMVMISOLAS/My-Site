@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Profile</title>
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #f5f5f5;
+        color: #222;
+        margin: 20px;
+        transition: background-color 0.3s, color 0.3s;
+      }
+
+      a {
+        text-decoration: none;
+        color: #0066cc;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      button,
+      input[type="submit"] {
+        padding: 8px 14px;
+        margin-top: 5px;
+        background-color: #0066cc;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      button:hover,
+      input[type="submit"]:hover {
+        background-color: #004a99;
+      }
+
+      table {
+        border-collapse: collapse;
+      }
+
+      td {
+        padding: 15px;
+        vertical-align: top;
+      }
+
+      #profileImg {
+        border-radius: 50%;
+        border: 3px solid #0066cc;
+      }
+
+      #skillsSection {
+        margin-top: 10px;
+      }
+
+      dl dd {
+        margin-left: 20px;
+      }
+
+      input[type="text"],
+      input[type="email"],
+      textarea {
+        width: 90%;
+        padding: 6px;
+        margin-top: 4px;
+        border: 1px solid #aaa;
+        border-radius: 4px;
+      }
+
+      textarea {
+        resize: none;
+        height: 100px;
+      }
+
+      footer {
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .dark-mode {
+        background-color: #121212;
+        color: #f1f1f1;
+      }
+
+      .dark-mode a {
+        color: #66b2ff;
+      }
+
+      .dark-mode button,
+      .dark-mode input[type="submit"] {
+        background-color: #444;
+      }
+
+      .dark-mode button:hover,
+      .dark-mode input[type="submit"]:hover {
+        background-color: #666;
+      }
+
+      .dark-mode input,
+      .dark-mode textarea {
+        background-color: #222;
+        color: #f1f1f1;
+        border-color: #555;
+      }
+
+      .dark-mode #profileImg {
+        border-color: #888;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="themeBtn">Toggle Dark Mode</button>
+    <hr />
+    <div>
+      <h2>
+        <a href="#home">Home</a> |
+        <a href="#about">About Me</a>
+      </h2>
+    </div>
+    <hr />
+    <table width="100%">
+      <tr>
+        <!-- LEFT COLUMN -->
+        <td width="40%" valign="top">
+          <div id="home">
+            <img
+              id="profileImg"
+              src="https://uploads.onecompiler.io/444vn9kjr/444vkewbm/profilepic.jpg"
+              alt="Profile Image"
+              width="200"
+              height="200"
+              /><br /><br />
+            <h2>Ezekiel Manuel V. Misolas</h2>
+            <p id="jobTitle">2nd Year NU Fairview College Student</p>
+            <button id="editJobBtn">Edit Job Title</button><br /><br />
+            <button id="changeImageBtn">Change Profile Picture</button>
+          </div>
+          <hr />
+          <div>
+            <h3>Contact</h3>
+            <p>Email: misolasev@students.nu-fairview.edu.ph / emvmisolas@gmail.com</p>
+            <p>Number: 09173208976 / 09673089891</p>
+            <p>Address: Batasan Hills, Quezon City</p>
+          </div>
+          <hr />
+          <!-- SKILLS SECTION -->
+          <button id="toggleSkillsBtn">Hide Skills</button>
+          <div id="skillsSection">
+            <h3>Skills</h3>
+            <dl>
+              <dd>Oral and Written English</dd>
+              <dd>Editing</dd>
+              <dd>HTML</dd>
+              <dd>VS Code</dd>
+            </dl>
+            <h4>Hobbies</h4>
+            <dl>
+              <dd>Playing Games</dd>
+              <dd>Singing</dd>
+              <dd>Watching Anime</dd>
+              <dd>Reading Manga</dd>
+            </dl>
+          </div>
+        </td>
+        <!-- RIGHT COLUMN -->
+        <td width="60%" valign="top">
+          <div id="about">
+            <h2>About Me</h2>
+            <p>
+              Born and raised in Quezon City on October 15, 2005. A BSIT-MI student at
+              National University Fairview who enjoys games, anime, and creative content.
+            </p>
+          </div>
+          <hr />
+          <!-- MESSAGE FORM -->
+          <div>
+            <h2>Message Me</h2>
+            <form onsubmit="return validateForm()">
+              <p>
+                Name:<br />
+                <input type="text" id="nameField" />
+              </p>
+              <p>
+                Email:<br />
+                <input type="email" id="emailField" />
+              </p>
+              <p>
+                Message:<br />
+                <textarea id="msgBox" maxlength="200"></textarea>
+              </p>
+              <p>Characters left: <span id="counter">200</span></p>
+              <p>
+                <input type="submit" value="Send" />
+              </p>
+            </form>
+          </div>
+        </td>
+      </tr>
+    </table>
+    <hr />
+    <footer>
+      <p><strong>WEBPROG - Web Programming 2025</strong></p>
+      <p id="dateDisplay"></p>
+    </footer>
+    <script>
+      const themeBtn = document.getElementById("themeBtn");
+
+      themeBtn.addEventListener("click", function () {
+        document.body.classList.toggle("dark-mode");
+      });
+
+      const editJobBtn = document.getElementById("editJobBtn");
+      const jobTitle = document.getElementById("jobTitle");
+
+      editJobBtn.addEventListener("click", function () {
+        const newTitle = prompt("Enter your new job title:");
+        if (newTitle !== null && newTitle.trim() !== "") {
+          jobTitle.textContent = newTitle;
+        }
+      });
+
+      const toggleSkillsBtn = document.getElementById("toggleSkillsBtn");
+      const skillsSection = document.getElementById("skillsSection");
+
+      toggleSkillsBtn.addEventListener("click", function () {
+        if (skillsSection.style.display === "none") {
+          skillsSection.style.display = "block";
+          toggleSkillsBtn.textContent = "Hide Skills";
+        } else {
+          skillsSection.style.display = "none";
+          toggleSkillsBtn.textContent = "Show Skills";
+        }
+      });
+
+      const msgBox = document.getElementById("msgBox");
+      const counter = document.getElementById("counter");
+      const maxLength = 200;
+
+      msgBox.addEventListener("keyup", function () {
+        const remaining = maxLength - msgBox.value.length;
+        counter.textContent = remaining;
+      });
+
+      function validateForm() {
+        const nameField = document.getElementById("nameField").value.trim();
+        const emailField = document.getElementById("emailField").value.trim();
+
+        if (nameField === "" || emailField === "") {
+          alert("Please fill in both Name and Email fields.");
+          return false;
+        }
+
+        alert("Message sent successfully!");
+        return true;
+      }
+
+      const dateDisplay = document.getElementById("dateDisplay");
+      const today = new Date();
+      dateDisplay.textContent = "Today's Date: " + today.toDateString();
+
+      const changeImageBtn = document.getElementById("changeImageBtn");
+      const profileImg = document.getElementById("profileImg");
+
+      changeImageBtn.addEventListener("click", function () {
+        const newImage = prompt("Enter the new profile image URL:");
+        if (newImage !== null && newImage.trim() !== "") {
+          profileImg.src = newImage;
+        }
+      });
+    </script>
+  </body>
+</html>
